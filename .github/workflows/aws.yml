@@ -4,6 +4,7 @@ on:
  
   push:
     branches: [ main ]
+    
 
 jobs:
   
@@ -12,19 +13,17 @@ jobs:
     name: Build Image
     runs-on: ubuntu-latest
 
-   
     steps:
-
+    
     - name: Check out code
       uses: actions/checkout@v2
-    
-    - name: Configure AWS credentials
+   
+
+    - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-secret-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
-        aws-region: us-east-2
+          role-to-assume: arn:aws:iam::408309576403:role/lrl-cluwe-developers
+          aws-region: us-east-1
 
     - name: Login to Amazon ECR
       id: login-ecr
@@ -33,8 +32,8 @@ jobs:
     - name: Build, tag, and push image to Amazon ECR
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: lrl-cluwe-mod-webtool-esign-service
-        IMAGE_TAG: cluwe-mod-webtool-esign-service
+        ECR_REPOSITORY: spring-boot-test-app
+        IMAGE_TAG: sample-image
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
