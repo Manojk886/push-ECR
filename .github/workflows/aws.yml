@@ -1,29 +1,29 @@
-name: Deploy to ECR
+name: Deploy Image to AWS ECR
 
 on:
- 
   push:
     branches: [ main ]
-    
-
+env:
+  AWS_REGION: "us-east-1"
+permissions:
+     id-token: write
+     contents: read
 jobs:
   
   build:
-    
     name: Build Image
     runs-on: ubuntu-latest
-
     steps:
     
     - name: Check out code
       uses: actions/checkout@v2
-   
-
+    
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
           role-to-assume: arn:aws:iam::408309576403:role/lrl-cluwe-developers
-          aws-region: us-east-1
+          role-session-name: samplerolesession
+          aws-region: ${{ env.AWS_REGION }}
 
     - name: Login to Amazon ECR
       id: login-ecr
