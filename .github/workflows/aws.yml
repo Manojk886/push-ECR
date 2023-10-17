@@ -6,22 +6,19 @@ on:
         description: module ( 'UI' , 'Esign' , 'CE' 'Version' )
       module_ui:  
         description: ' UI '
-        required: false
+        required: true
         type: boolean
       build_esign:
         description: ' ESIGN '
-        required: false
+        required: true
         type: boolean
       build_ce:
         description: ' CE '
-        required: false
-        default: false
+        required: true
         type: boolean
-
       build_version:
         description: ' Version '
-        required: false
-        default: false
+        required: true
         type: boolean
 
 permissions:
