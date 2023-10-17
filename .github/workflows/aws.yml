@@ -3,23 +3,15 @@ on:
   workflow_dispatch:
     inputs:
       module:
-        description: module ( 'UI' , 'Esign' , 'CE' 'Version' )
-      module_ui:  
-        description: ' UI '
+        description: 'Select modules to build and deploy'
         required: true
-        type: boolean
-      build_esign:
-        description: ' ESIGN '
-        required: true
-        type: boolean
-      build_ce:
-        description: ' CE '
-        required: true
-        type: boolean
-      build_version:
-        description: ' Version '
-        required: true
-        type: boolean
+        default: Esign
+        options:
+          - UI
+          - Esign
+          - version
+          - CE
+
 
 permissions:
   id-token: write
