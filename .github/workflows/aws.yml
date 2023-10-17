@@ -1,16 +1,12 @@
 name: LRL-CLUWE-MOD-WEBTOOL-ESIGN-SERVICE
 on:
-   workflow_dispatch:
+  workflow_dispatch:
     inputs:
       module:
-        description: module
-        required: true
-        default: Esign
-        options:
-        - UI
-        - Esign
-        - version
-        - CE
+        description: ' UI , ESIGN '
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   id-token: write
