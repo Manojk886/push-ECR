@@ -2,15 +2,15 @@ name: LRL-CLUWE-MOD-WEBTOOL-ESIGN-SERVICE
 on:
   workflow_dispatch:
     inputs:
-      build_ui:
+      module:
+        description: module
+      module_tags:  
         description: ' UI '
         required: false
-        default: false
         type: boolean
       build_esign:
         description: ' ESIGN '
         required: false
-        default: false
         type: boolean
       build_ce:
         description: ' CE '
