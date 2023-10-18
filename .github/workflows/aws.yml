@@ -1,8 +1,10 @@
 name: my-project
 on:
+
   push:
     branches:
       - dev
+
 
 permissions:
   id-token: write
