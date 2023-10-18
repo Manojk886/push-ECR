@@ -1,29 +1,9 @@
-name: LRL-CLUWE-MOD-WEBTOOL-ESIGN-SERVICE
+name: my-project
 on:
-  workflow_dispatch:
-    inputs:
-      module:
-        description: module ( 'UI' , 'Esign' , 'CE' 'Version' )
-      module_ui:  
-        description: ' UI '
-        required: false
-        type: boolean
-      build_esign:
-        description: ' ESIGN '
-        required: false
-        type: boolean
-      build_ce:
-        description: ' CE '
-        required: false
-        default: false
-        type: boolean
 
-      build_version:
-        description: ' Version '
-        required: false
-        default: false
-        type: boolean
-
+  push:
+    branches:
+      - dev
 
 
 permissions:
@@ -32,60 +12,30 @@ permissions:
 
 jobs:
   build_and_deploy:
+    strategy:
+      matrix:
+        module: ['Esign']
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          role-to-assume: arn:aws:iam::408309576403:role/lrl-cluwe-dev-r4
-          aws-region: us-east-2
-
-      - name: Build in Root Directory
-        run: mvn clean install -DskipTests
-        working-directory: ./
-
-      - name: Set up Environment
-        id: setup-env
+      - name: Set Environment Variables
         run: |
-          # Read the properties file
-          source .github/workflows/properties.txt
-          # Set the environment variables based on the properties
-          ECR_REPOSITORY="${{ matrix.module }}.ECR_REPOSITORY"
-          DOCKERFILE_PATH="${{ matrix.module }}.DOCKERFILE_PATH"
-          ECS_CLUSTER="${{ matrix.module }}.ECS_CLUSTER"
-          ECS_SERVICE="${{ matrix.module }}.ECS_SERVICE"
-          CONTAINER_NAME="${{ matrix.module }}.CONTAINER_NAME"
-          ECS_TASK_DEFINITION="${{ matrix.module }}.ECS_TASK_DEFINITION"
-
-          echo "ECR_REPOSITORY=$( echo "$ECR_REPOSITORY" | awk -F'=' '{print $2}')" >> $GITHUB_ENV
-          echo "DOCKERFILE_PATH=$(echo "$DOCKERFILE_PATH | awk -F'=' '{print $2}')" >> $GITHUB_ENV
-          echo "ECS_CLUSTER=$ECS_CLUSTER" >> $GITHUB_ENV
-          echo "ECS_SERVICE=$ECS_SERVICE" >> $GITHUB_ENV
-          echo "CONTAINER_NAME=$CONTAINER_NAME" >> $GITHUB_ENV
-          echo "ECS_TASK_DEFINITION=$ECS_TASK_DEFINITION" >> $GITHUB_ENV
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-
-      - name: Build and Push Docker Image
-        id: build-image
-        env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        run: |
-          INCREMENTAL_NUMBER="${{ github.run_number }}"
-          IMAGE_TAG="latest-V1.${INCREMENTAL_NUMBER}"
-          ECR_REPOSITORY="${{ env.ECR_REPOSITORY }}"
-          DOCKERFILE_PATH="${{ env.DOCKERFILE_PATH }}"
-          echo "Generated Tag: $IMAGE_TAG"
-          echo "IMAGE_TAG=$IMAGE_TAG" >> "$GITHUB_ENV"
-          IMAGE_URI="$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-          echo "Building image for ${{ matrix.module }}..."
-          docker build -t "$IMAGE_URI" -f "$DOCKERFILE_PATH" .
-          docker push "$IMAGE_URI"
-          echo "Image URI for ${{ matrix.module }}: $IMAGE_URI"
-          echo "::set-output name=${{ matrix.module }}-image::$IMAGE_URI"
+         
+          properties_file=".github/workflows/properties.txt"
+          source "$properties_file"
+          
+          ECR_REPOSITORY=$(echo "${{ matrix.module }}_ECR_REPOSITORY" | awk -F':' '{print $2}')
+          echo $ECR_REPOSITORY 
+          DOCKERFILE_PATH=$(echo "${{ matrix.module }}_DOCKERFILE_PATH | awk -F':' '{print $2}')"
+          echo $DOCKERFILE_PATH 
+                
+   
+          # Export the environment variables to GitHub Actions environment
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> $GITHUB_ENV
+          echo $ECR_REPOSITORY 
+          echo "DOCKERFILE_PATH=$DOCKERFILE_PATH" >> $GITHUB_ENV
+          echo $DOCKERFILE_PATH
+          
