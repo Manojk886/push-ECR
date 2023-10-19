@@ -27,13 +27,8 @@ jobs:
           properties_file=".github/workflows/properties.txt"
           source "$properties_file"
           
-          ECR_REPOSITORY=$(echo ${{ matrix.module }}_ECR_REPOSITORY | cut -d':' -f2)
+          ECR_REPOSITORY=$(echo ${{ matrix.module }}_ECR_REPOSITORY | cut -d':' -f1)
           export ${{ matrix.module }}_ECR_REPOSITORY=ECR_REPOSITORY
           echo "$ECR_REPOSITORY"
    
-          # Export the environment variables to GitHub Actions environment
-          echo "ECR_REPOSITORY=$ECR_REPOSITORY" >> $GITHUB_ENV
-          echo $ECR_REPOSITORY 
-          echo "DOCKERFILE_PATH=$DOCKERFILE_PATH" >> $GITHUB_ENV
-          echo $DOCKERFILE_PATH
           
