@@ -27,6 +27,7 @@ jobs:
           source=.github/workflows/properties.txt
           
           ECR_REPOSITORY=$(grep ${{ matrix.module }}_ECR_REPOSITORY | cut -d':' -f1) 
+          echo "ECR_REPOSITORY=$ECR_REPOSITORY"
           
           echo "$ECR_REPOSITORY"
           
