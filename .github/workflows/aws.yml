@@ -24,8 +24,7 @@ jobs:
       - name: Set Environment Variables
         run: |
          
-          properties_file=".github/workflows/properties.txt"
-          source "$properties_file"
+          source=.github/workflows/properties.txt
           
           ECR_REPOSITORY=$(grep ${{ matrix.module }}_ECR_REPOSITORY | cut -d':' -f1) 
           
