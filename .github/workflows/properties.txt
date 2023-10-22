@@ -1,4 +1,4 @@
- Esign_ECR_REPOSITORY:esign-service-repo
+ Esign_ECR_REPOSITORY=esign-service-repo
  Esign_DOCKERFILE_PATH: ./service/signature/Dockerfile
  Esign_ECS_SERVICE: esign-service
  Esign_CONTAINER_NAME: esign-container
