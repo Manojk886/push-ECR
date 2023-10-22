@@ -26,7 +26,7 @@ jobs:
          
           source .github/workflows/properties.txt
           
-          ECR_REPO=( echo ${{ matrix.module }}_ECR_REPOSITORY | cut -d '=' -f1)
+          ECR_REPO=( echo ${{ matrix.module }}_ECR_REPOSITORY | awk -F "=" '{print $NF}')
           echo "ECR_REPO=$ECR_REPOSITORY"
           echo "$ECR_REPOSITORY"
           
