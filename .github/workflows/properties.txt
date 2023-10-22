@@ -1,11 +1,11 @@
- Esign_ECR_REPOSITORY=esign-service-repo
- Esign_DOCKERFILE_PATH: ./service/signature/Dockerfile
- Esign_ECS_SERVICE: esign-service
- Esign_CONTAINER_NAME: esign-container
- Esign_ECS_TASK_DEFINITION: .github/taskdef/task-def-esign.json
- Version_ECR_REPOSITORY: spring-boot-app-test
- Version_DOCKERFILE_PATH: ./service/signature/Dockerfile
- Version_ECS_CLUSTER: lrl-cluwe-ecs-cluster
- Version_ECS_SERVICE: versioning-service
- Version_CONTAINER_NAME: version-container
- Version_ECS_TASK_DEFINITION: .github/taskdef/task-def-version.jsoni
+Esign_ECR_REPOSITORY=esign-service-repo
+Esign_DOCKERFILE_PATH=./service/signature/Dockerfile
+Esign_ECS_SERVICE=esign-service
+Esign_CONTAINER_NAME=esign-container
+Esign_ECS_TASK_DEFINITION=.github/taskdef/task-def-esign.json
+Version_ECR_REPOSITORY=spring-boot-app-test
+Version_DOCKERFILE_PATH=./service/signature/Dockerfile
+Version_ECS_CLUSTER=lrl-cluwe-ecs-cluster
+Version_ECS_SERVICE=versioning-service
+Version_CONTAINER_NAME=version-container
+Version_ECS_TASK_DEFINITION=.github/taskdef/task-def-version.json
