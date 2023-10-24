@@ -27,11 +27,11 @@ jobs:
           source .github/workflows/properties.txt
           
           # Access the variables
-          echo "ECR_REPOSITORY: ${{matrix.module}}_ECR_REPOSITORY"
-          echo "DOCKERFILE_PATH: ${{matrix.module}}_DOCKERFILE_PATH"
-          echo "ECS_SERVICE: ${{matrix.module}}_ECS_SERVICE"
-          echo "CONTAINER_NAME: ${{matrix.module}}_CONTAINER_NAME"
-          echo "ECS_TASK_DEFINITION: ${{matrix.module}}_ECS_TASK_DEFINITION"
+          echo "ECR_REPOSITORY: $matrix.module_ECR_REPOSITORY"
+          echo "DOCKERFILE_PATH: $matrix.module_DOCKERFILE_PATH"
+          echo "ECS_SERVICE: $matrix.module_ECS_SERVICE"
+          echo "CONTAINER_NAME: $matrix.module_CONTAINER_NAME"
+          echo "ECS_TASK_DEFINITION: $matrix.module_ECS_TASK_DEFINITION"
    
 
           
