@@ -14,7 +14,7 @@ jobs:
   build_and_deploy:
     strategy:
       matrix:
-        module: [ Esign ]
+        module: [ 'Esign' ]
     runs-on: ubuntu-latest
 
     steps:
