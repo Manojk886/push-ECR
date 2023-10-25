@@ -24,7 +24,7 @@ jobs:
       - name: Set Environment Variables
         run: |
           # Source the properties file to set environment variables
-          source .github/workflows/properties.txt
+          source ./.github/workflows/properties.txt
 
 
           # Use the matrix.module value to dynamically fetch the properties
